@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <h3 class="card-title">{{ user.name }}</h3>
+        <p><img src="{{ user.image }}" alt=""></p>
+        <div class="stepper">
+            <div class="step">
+                <p class="step-number">H.</p>
+                <p class="step-title">Height</p>
+                <p>
+                    {{ user.height/100|number_format }} m
+                </p>
+            </div>
+            <div class="step">
+                <p class="step-number">{{ user.bloodGroup }}</p>
+                <p class="step-title">Blood group</p>
+            </div>
+            <div class="step">
+                <p class="step-number">☎</p>
+                <p class="step-title">{{ user.phone }}</p>
+            </div>
+        </div>
+        <a href="{{ path('app_user_index') }}">
+            <button class="button-info button-small">
+                Return to list
+            </button>
+        </a>
+    </div>
+{% endblock %}

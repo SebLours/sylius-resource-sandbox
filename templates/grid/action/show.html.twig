@@ -1,0 +1,7 @@
+{% set path = options.link.url|default(path(options.link.route|default(grid.requestConfiguration.getRouteName('show')), options.link.parameters|default({'id': data.id}))) %}
+
+<a href="{{ path }}">
+    <button class="button-info button-small">
+        show
+    </button>
+</a>

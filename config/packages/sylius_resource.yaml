@@ -1,0 +1,6 @@
+sylius_resource:
+    settings:
+        default_templates_dir: crud
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Model'

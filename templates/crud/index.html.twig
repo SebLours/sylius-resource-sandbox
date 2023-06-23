@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% set grid = resources %}
+{% set definition = grid.definition %}
+
+{% block body %}
+    <h1>{{ operation.resource.pluralName|title }}</h1>
+    <table style="width: 1000px">
+        <thead>
+        <tr>
+            {% for field in definition.fields %}
+                {% if field.enabled %}
+                    <th>{{ field.label }}</th>
+                {% endif %}
+            {% endfor %}
+            {% if definition.actionGroups.item is defined and definition.getEnabledActions('item')|length > 0 %}
+                <th>Actions</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for resource in resources.data %}
+            <tr>
+                {% for field in definition.enabledFields %}
+                    <td>{{ sylius_grid_render_field(grid, field, resource) }}</td>
+                {% endfor %}
+                <td>
+                    {% for action in definition.getEnabledActions('item') %}
+                        {{ sylius_grid_render_action(grid, action, resource) }}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if resources.data.haveToPaginate() %}
+        <ul class="pagination">
+            {% for page in range(1, resources.data.getNbPages()) %}
+                <li><a href="{{
+                    path(
+                        app.request.attributes.get('_route'),
+                        { 'page': page, 'limit': app.request.query.get('limit', null) }
+                    )
+                }}">{{ page }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
